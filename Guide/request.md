@@ -69,11 +69,9 @@ REST framework는 브라우저 기반 PUT, PATCH 및 DELETE form과 같은 브�
 
 일반적으로 REST framework의 기본 요청 구문 분석 동작에 의존하므로 요청의 콘텐츠에 직접 접근 할 필요는 없다. 
 
-##Standard HttpRequest attributes
+## Standard HttpRequest attributes
 REST framework의 `Request`는 Django의 `HttpRequest`를 확장했기 때문에, 다른 표준 속성과 메서드를 모두 사용할 수 있다. 예를들어 `request.META`와 `request.session` dictionary를 이용할 수 있다. 
 
 구현을 위해 `Request` 클래스는 `HttpRequest`클래스에서 상속하지 않고 composition을 사용해 클래스를 확장한다. 
-
--
 
 
