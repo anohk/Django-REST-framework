@@ -74,4 +74,6 @@ REST framework의 `Request`는 Django의 `HttpRequest`를 확장했기 때문에
 
 구현을 위해 `Request` 클래스는 `HttpRequest`클래스에서 상속하지 않고 composition을 사용해 클래스를 확장한다. 
 
+-
+
 
