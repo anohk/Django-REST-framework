@@ -200,31 +200,146 @@ def perform_create(self, serializer):
 	주어진 쿼리셋을 사용중인 필터 백엔드를 사용해 새로운 쿼리셋을 리턴한다.  
 
 ## Mixins
+mixin 클래스는 기본 view 동작을 제공하는데 사용하는 액션들을 제공한다. mixin 클래스는 `.get()`, `.post()`와 같은 핸들러 메서드를 직접 정의하는 것이 아니라 작업 메서드를 제공하는 것이다. 이는 더욱 유연한 행동 구성을 가능하게 한다. 
+
+mixin 클래스는 `rest_framework.mixins`에서 임포트 할 수 있다. 
+
 ## ListModelMixin
+쿼리셋을 리스트로 구현하는 `.list(request, *args, **kwargs)` 메서드를 제공한다. 
+queryset이 채워지면, 응답의 본문으로 queryset의 직렬화된 표현과 함께 `200 OK` 응답을 리턴한다. 응답 데이터는 선택적으로 페이징될 수 있다. 
+
 ## CreatedModelMixin
+새로운 모델 인스턴스의 생성 및 저장을 구현하는 `.create(request, *args, **kwargs)` 메서드를 제공한다. 
+
 ## RetrieveModelMixin
+응답에서 기존 모델 인스턴스를 리턴하도록 구현하는 `.retrieve(request, *args, **kwargs)` 메서드를 제공한다. 
+
+객체를 검색할 수 있는 경우 `200 OK`응답을 리턴하고 객체를 응답 본문으로 직렬화해서 리턴한다. 그렇지 않으면 `404 Not Found`를 리턴한다. 
+
+객체가 생성되면 객체의 직렬화된 표현을 응답의 본문으로 사용하고 `201 Created` 응답을 리턴한다. 표현에 `url`이라는 키가 포함되어 있으면 응답의 `Location` 헤더가 해당 값으로 채워진다.
+
+객체 생성을 위해 제공된 요청 데이터가 유요하지 않은 경우 `400 Bad Request`가 리턴되고 오류 내용은 응답 본문으로 리턴된다. 
+
 ## UpdateModelMixin
+기존 모델 인스턴스를 업데이트하고 저장하는 `.update(request, *args, **kwargs)`메서드를 제공한다. 
+
+또한 `update` 메서드와 유사한 `.partial_update(request, *args, **kwargs)` 메서드를 제공한다. HTTP `PATCH` 요청을 지원하며 업데이트의 모든 필드는 선택사항이다. 
+
+객체가 업데이트되면 객체의 직렬화된 표현이 응답 본문과 함께 `200 OK`응답을 리턴한다. 
+
+객체를 업데이트하기 위해 제공된 요청 데이터가 유효하지 않은 경우 `400 Bad Request`가 리턴되고, 오류의 세부 정보가 응답 본문으로 사용된다. 
+
 ## DestroyModelMixin
+기존 모델 인스턴스의 삭제를 구현하는 `.destroy(request, *args. **kwargs)` 메서드를 제공한다. 
+
+객체가 삭제되면 `204 No Content`를 리턴하고 그렇지 않으면 `404 Not Found`를 리턴한다. 
 
 # Concrete View Classes
+아래의 클래스들은 구체적인 generic view이다. generic view를 사용한다면, 많은 커스텀 동작이 필요하지 않을 때 적용할 만한 레벨이다. 
+
+view 클래스는 `rest_framework.generics`에서 임포트 할 수 있다. 
+
 ## CreateAPIView
+**create-only** 엔드포인트에 사용된다.  
+
+`post` 메서드 핸들러를 제공한다.  
+
+Extends: `GenericAPIView`, `CreateModelMixin`
+
 ## ListAPIView
+**read-only** 엔드포인트가 모델 인스턴스 컬렉션을 나타내는데 사용된다.  
+
+`get` 메서드 핸들러를 제공한다.  
+
+Extends: `GenericAPIView`, `ListModelMixin`
+
 ## RetrieveAPIView
+**read-only** 엔드포인트가 단일 모델 인스턴스를 나타내는데 사용된다.  
+
+`get` 메서드 핸들러를 제공한다.  
+
+Extends: `GenericAPIView`, `RetrieveModelMixin`
+
 ## DestroyAPIView
+단일 모델 인스턴스의 **delete-only** 엔드포인트에 사용된다. 
+
+`delete` 메서드 핸들러를 제공한다.
+
+Extends: `GenericAPIView`, `DestroyModelMixin`
+
 ## UpdateAPIView
+단일 모델 인스턴스의 **update-only** 엔드포인트에 사용된다. 
+
+`put`, `patch` 메서드 핸들러를제공한다.
+
+Extends: `GenericAPIView`, `UpdateModelMixin`
+
 ## ListCreateAPIView
+모델 인스턴스 콜렉션을 나타내는 **read-write** 엔드포인트에 사용된다. 
+
+`get`, `post` 핸들러를 제공한다. 
+
+Extends: `GenericAPIView`, `ListModelMixin`, `CreateModelMixin`
+
 ## RetrieveUpdateAPIView
+단일 모델 인스턴스를 나타내기위해 **read or update** 엔드포인트에 사용된다.
+
+`get`, `put`, `patch` 핸들러를 제공한다. 
+
+Extends: `GenericAPIView`, `RetrieveModelMixin`, `UpdateModelMixin`
+
 ## RetrieveDestroyAPIView
+단일 모델 인스턴스를 나타내는 `read or delete` 엔드포인트에 사용된다. 
+
+`get`, `delete` 핸들러를 제공한다. 
+
+Extends: `GenericAPIView`, `RetrieveModelMixin`, `DestroyModelMixin`
+
 ## RetrieveUpdateDestroyAPIView
+단일 모델 인스턴스를 나타내는 `read-write-delte` 엔드포인트에 사용된다.
+
+`get`, `put`, `patch`, `delete` 핸들러를 제공한다. 
+
+Extends: `GenericAPIView`, `RetrieveModelMixin`, `UpdateModelMixin`, `DestroyModelMixin`
 
 # Customizing the generic views
+여러 위치에서 커스터마이징한 동작을 재사용하는 경우, 동작을 공통 클래스로 리팩토링하여 필요할 때 모든 view나 viewset에 적용할 수 있다. 
+
 ## Creating custom mixins
+예를 들어, URL conf 내의 복수의 필드에 의해 객체를 검색해야 할 경우, 다음과 같이 mixin 클래스를 작성할 수 있다. 
+
+```python
+class MultipleFieldLookupMixin(object):
+	def get_object(self):
+		queryset = self.get_queryset()
+		queryset = self.filter_queryset(queryset)
+		filter = {}
+		for field in self.lookup_fileds:
+			filter[field] = self.kwargs[field]
+		return get_object_or_404(queryset, **filter)
+```
+
+그리고나서 커스텀된 동작을 적용할 때 마다 view나 viewset에 적용할 수 있다. 
+
+```python
+class RetrieveUserView(MultipleFieldLookupMixin, generics.RetrieveAPIView):
+	queryset = User.objects.all()
+	serializer_class = UserSerializer
+	lookup_fields = ('account', 'username')
+```
+
+
 ## Creating custom base classes
+여러 view에서 mixin을 사용하는 경우, 프로젝트 전체에서 사용할 수 있는 기본 view의 set을 만들 수 있다. 
 
-# PUT as create
+```python
+class BaseRetrieveView(MultipleFieldLookupMixin,
+							generics.RetrieveAPIView):
+	pass
 
--
+class BaseRetrieveUpdateDestroyView(MultipleFieldLookupMixin,
+											generics.RetrieveUpdateDestroyAPIView):
+	pass					
+```
 
-# Third party packages
-## Django REST Framework bulk
-## Django Rest Multiple Models
+프로젝트 전반에 걸쳐 여러 view에서 동일하게 반복해야하는 커스텀 동작이 있는 경우, custom base class 를 사용하는 것이좋다. 
