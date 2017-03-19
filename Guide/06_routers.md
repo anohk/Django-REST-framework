@@ -28,12 +28,12 @@ urlpatterns = router.urls
 	
 위의 예제는 다음과 같은 URL 패턴을 생성한다. 
 
-```python
-URL pattern: `^users/$` Name: `'user-list'`
-URL pattern: `^users/{pk}/$` Name: `'user-detail'`
-URL pattern: `^accounts/$` Name: `'accounts-list'`
-URL pattern: `^accounts/{pk}$` Name: `'accounts-detail'`
-```
+
+URL pattern: `^users/$`  Name: `'user-list'`
+URL pattern: `^users/{pk}/$`  Name: `'user-detail'`
+URL pattern: `^accounts/$`  Name: `'accounts-list'`
+URL pattern: `^accounts/{pk}$`  Name: `'accounts-detail'`
+
 
 **Note:**  
 `base_name` argument는 view name  패턴의 초기 부분을 지정하는데 사용된다. 위의 예제에서는 `user`와 `account` 부분에 해당한다. 
