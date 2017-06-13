@@ -56,8 +56,8 @@ Rest framework의 `APIView`를 확장하여 표준 list와 detail view에 일반
 - `queryset`  
 	이 view에서 객체를 리턴하는데 사용해야하는 queryset이다. 일반적으로 이 속성을 설정하거나 `get_queryset()`메서드를 오버라이드해야한다. 만약 view 메서드를 오버라이드한다면, 이 속성에 직접 접근하는 것 대신 `get_queryset()`을 호출해야한다. `queryset`은 한 번 평가되고 그 결과는 모든 후속 요청에 대해 캐시된다. 
 - `serializer_class`  
-	입력의 검증과 직렬화 복원 및 출력 직력화에 사용하는 serialize class이다. 일반적으로 이 속성을 설정하거나 `get_serializer_class()`메서드를 오버라이드해야한다.
-- `lookip_field`  
+	입력의 검증과 직렬화 복원 및 출력 직렬화에 사용하는 serialize class이다. 일반적으로 이 속성을 설정하거나 `get_serializer_class()`메서드를 오버라이드해야한다.
+- `lookup_field`  
 	개별 모델 인스턴스의 객체 조회를 수행하는데 사용하는 모델 필드이다. 기본값은 `pk`이다. 하이퍼링크된 API를 사용할 때 커스텀 값을 사용해야하는 경우, API view 및 serializer 클래스가 조회 필드를 설정해야한다. 
 - `lookup_url_kwarg`  
 	객체 검색에 사용하는 URL 키워드 argument이다. URL_conf에는 이 값에 해당하는 키워드 argument가 포함되어야한다. 설정을 해제하면 `lookup_field`와 동일한 값을 사용한다. 

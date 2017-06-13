@@ -7,7 +7,9 @@ REST framework 는 Django의 `View`클래스의 서브클래스인 `APIView`클�
 - 핸들러 메서드에 전달된 요청은 Django의 HttpRequest 인스턴스가 아닌 REST framework의 `Request` 인스턴스가 된다.
 - 핸들러 메서드는 Django의 `HttpResponse`대신 REST framework의 `Response`를 리턴할 수 있다. view는 content negotiation을 관리하고 응답에서 올바른 렌더러를 설정한다
 - 모든 `APIException` 예외는 적절한 응답으로 조정된다.
-- 들어오는 요청은 인증되고, 적절한 권한 또는throttle 체크로 요청을 핸들러 메서드로 전달하기 전에 실행된다. ?
+- 들어오는 요청은 인증되고, 적절한 권한 또는 throttle 체크로 요청을 핸들러 메서드로 전달하기 전에 실행된다.
+
+> throttle? 
 
 `APIView`클래스를 사용하는 것은 일반 View 클래스를 사용하는 것과 거의 동일하다. 들어오는 요청은 `.get()`또는 `.post()`와 같은 적절한 핸들러 메서드로 전달된다. 또한 API 정책의 다양한 측면을 제어하는 여러가지 속성을 클래스에 설정할 수 있다. 
 
