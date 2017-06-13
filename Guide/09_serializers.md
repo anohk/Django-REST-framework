@@ -106,7 +106,7 @@ def update(self, instance, validated_data):
 데이터를 비 직렬화 할 때 `.save()`를 호출해 유효성이 검사된 데이터를 기반으로 객체 인스턴스를 반환할 수 있다. 
 
 ```python
-comment - serializer.save()
+comment = serializer.save()
 ```
 
 `.save()` 메서드를 호출하면 serializer 클래스를 인스턴스화 할 때, 인스턴스의 존재 여부에 따라 인스턴스를 생성하거나 업데이트한다. 
@@ -162,7 +162,7 @@ serializer.errors
 ### Raising an exception on invalid data
 `.is_valid()` 메서드는 유효성 검사 오류가 있는 경우 `serializers.ValidationError` 예외를  발생시키는 선택적 `raise_exception` 플래그를 사용한다. 
 
-이런 예외는 REST framework에서 제공하는 기본 예이 처리기에서 자동으로 처리되며 기본적으로 `HTTP 400 Bad Request`를 리턴한다. 
+이런 예외는 REST framework에서 제공하는 기본 예외 처리기에서 자동으로 처리되며 기본적으로 `HTTP 400 Bad Request`를 리턴한다. 
 
 ```python
 # Return a 400 response if the data was invalid.
@@ -171,7 +171,7 @@ serializer.is_valid(raise_exception=True)
 
 ### Field-level validation
 ### Object-level validation
-### vAlidators
+### Vallidators
 
 ## Accessing the initial data and instance
 serializer 인스턴스에 초기 객체 또는 queryset을 전달할 때, 객체는 `.instance`를 사용한다. 초기 객체가 전달되지 않으면 `.instance` 속성은 `None`이된다. 
