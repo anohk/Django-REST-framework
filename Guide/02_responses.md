@@ -1,7 +1,7 @@
 # Responses
 REST framework는 콘텐츠를 리턴하는 `Response` 클래스로 HTTP content negotiation을 지원한다. `Response`는 클라이언트 요청에 따라 여러 콘텐츠 타입으로 렌더링할 수 있다.   
 
-`Response`클래스는 Django의 `SimpleTemplateResponse`의 하위 클래스이다. `Response` 객체는 원시 Python 기본 요소로 구성되어야하는 데이터로 초기화된다. 그리고나서 REST framework는 표준 HTTP content negotiation을 사용해 최종 응답 내용을 렌더링하는 방법을 결정한다. 
+`Response`클래스는 Django의 `SimpleTemplateResponse`의 하위 클래스이다. `Response` 객체는 데이터로 초기화된다. 이때 데이터는 원시 Python 기본 요소로 구성되어야한다. 그후 REST framework는 표준 HTTP content negotiation을 사용해 최종 응답 내용을 렌더링하는 방법을 결정한다. 
 
 `Response`클래스를 사용할 필요는 없고 필요한 경우 일반 `HttpResponse`또는 `StreamingHttpResponse` 객체를 뷰에서 리턴할 수도 있다. `Response`클래스를 사용하면 여러가지 형식으로 렌더링할 수 있는 content-negotiationed Web API 응답을 리턴하기에 더 좋은 인터페이스가 제공된다. 
 
